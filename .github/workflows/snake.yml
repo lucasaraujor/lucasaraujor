@@ -2,7 +2,6 @@ name: Generate Snake Animation
 
 on:
   schedule:
-    # Executa automaticamente a cada 24 horas
     - cron: "0 0 * * *" 
   workflow_dispatch:
   push:
@@ -11,12 +10,17 @@ on:
 
 jobs:
   generate:
+    # Adicionada a permissão de escrita necessária para criar a branch 'output'
+    permissions: 
+      contents: write
+      
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
     steps:
       - name: generate github-contribution-grid-snake.svg
-        uses: Platane/snk/yarn-build@v3
+        # Caminho da action corrigido para a versão 3 oficial
+        uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
